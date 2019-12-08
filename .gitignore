@@ -1,0 +1,8 @@
+# Build and install dirs
+build*/
+*-build-*/
+install*/
+*-install-*/
+
+# Ignoring IDEs conf files
+.idea/
