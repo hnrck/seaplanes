@@ -1,12 +1,10 @@
-/**
- * @file    LogicalProcessorResults.h
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date    July, 2016
- * @brief   Logical processor Attribute manipulation.
- *
- * This class provides a simple way to use attribute.
- */
+//! \file    LogicalProcessorResults.h
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date    July, 2016
+//! \brief   Logical processor Attribute manipulation.
+//!
+//! This class provides a simple way to use attribute.
 
 #ifndef LOGICALPROCESSORRESULTS_H
 #define LOGICALPROCESSORRESULTS_H

@@ -1,10 +1,8 @@
-/**
- * @file    LogicalProcessorResults.cpp
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date    July, 2016
- * @brief   Rosace Attribute manipulation implementation.
- */
+//! \file    LogicalProcessorResults.cpp
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date    July, 2016
+//! \brief   Rosace Attribute manipulation implementation.
 
 #include <LogicalProcessorResults.h>
 

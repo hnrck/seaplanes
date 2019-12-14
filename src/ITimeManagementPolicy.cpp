@@ -1,10 +1,8 @@
-/**
- * @file    ITimeManagementPolicy.cc
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date    July, 2016
- * @brief   Time management interface implementation.
- */
+//! \file    ITimeManagementPolicy.cc
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date    July, 2016
+//! \brief   Time management interface implementation.
 
 #include <memory>
 

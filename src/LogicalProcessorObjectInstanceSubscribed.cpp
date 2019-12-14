@@ -1,10 +1,8 @@
-/**
- * @file    SeaplanesObjectInstanceSubscribed.cc
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date    July, 2016
- * @brief   Rosace Subscribed object instance manipulation implementation.
- */
+//! \file    SeaplanesObjectInstanceSubscribed.cc
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date    July, 2016
+//! \brief   Rosace Subscribed object instance manipulation implementation.
 
 #include <LogicalProcessorObjectInstanceSubscribed.h>
 
@@ -64,7 +62,6 @@ void ObjectInstanceSubscribed::tryToDiscover(
 
 void ObjectInstanceSubscribed::reflectAttributeValues(
     const RTI::AttributeHandleValuePairSet &receivedAttributes) {
-  // TODO(h.deschamps) auto to stick
   RTI::ULong valueLength;
   RTI::AttributeHandle attributeHandle;
 
@@ -90,9 +87,7 @@ void ObjectInstanceSubscribed::reflectAttributeValues(
     // buffer.read_doubles(&value, 0);
     mapped_attributes_[attributeHandle]->setValue(value);
 #else  // USE_CERTI_MESSAGE_BUFFER
-    // TODO(henrick) Warning, only for double for now. Make something more
     // generic.
-    // TODO(henrick) Warning, do not use reinterpret cast. Find a better way.
     auto *const p_value = reinterpret_cast<double *>(messageBuffer);
     __map_sp_attributes_[attributeHandle]->setValue(*p_value);
 #endif // USE_CERTI_MESSAGE_BUFFER

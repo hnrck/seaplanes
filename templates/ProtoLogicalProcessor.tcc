@@ -1,10 +1,8 @@
-/**
- * @file ProtoLogicalProcessor.tcc
- * @brief Implementation of Proto-Logical processor template.
- * @author Henrick Deschamps <henrick [dot] deschamps [at] isae [dot] fr>
- * @version 1.0.0
- * @date July 2016
- */
+//! \file ProtoLogicalProcessor.tcc
+//! \brief Implementation of Proto-Logical processor template.
+//! \author Henrick Deschamps <henrick [dot] deschamps [at] isae [dot] fr>
+//! \version 1.0.0
+//! \date July 2016
 
 template <typename T> static inline void fileWrite(std::ofstream *p_os, T t) {
   (*p_os) << t;

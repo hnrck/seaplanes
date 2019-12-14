@@ -1,10 +1,8 @@
-/**
- * @file    SeaplanesObjectInstancePublished.cc
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date    July, 2016
- * @brief   Rosace Published object instance manipulation implementation.
- */
+//! \file    SeaplanesObjectInstancePublished.cc
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date    July, 2016
+//! \brief   Rosace Published object instance manipulation implementation.
 
 #include <LogicalProcessorObjectInstancePublished.h>
 
@@ -50,7 +48,6 @@ void ObjectInstancePublished::updateAttributeValues(
                           static_cast<char *>((*certiMessagebuffer)(0)),
                           certiMessagebuffer->size());
 #else  // USE_CERTI_MESSAGE_BUFFER
-    // TODO(h.deschamps) better representation handling. Warning, arch
     // dependant. (For instance 64bits LE).
     auto *const messageBuffer = reinterpret_cast<char *>(&value);
     __up_instance_object_->add(sp_attribute->getHandle(), messageBuffer,

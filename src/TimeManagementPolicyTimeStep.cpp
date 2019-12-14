@@ -1,10 +1,8 @@
-/**
- * @file    TimeManagementPolicyTimeStep.cc
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date    July, 2016
- * @brief   Timestep time management specialization implementation.
- */
+//! \file    TimeManagementPolicyTimeStep.cc
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date    July, 2016
+//! \brief   Timestep time management specialization implementation.
 
 #include <iostream>
 

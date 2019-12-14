@@ -10,14 +10,10 @@
 #include <RTI.hh>
 #include <fedtime.hh>
 
-/**
- * @brief Explicit type for name.
- */
+//! \brief Explicit type for name.
 using Name = std::string;
 
-/**
- * @brief explicit type for tag.
- */
+//! \brief explicit type for tag.
 using Tag = std::string;
 
 #endif // LOGICALPROCESSORCOMMON_H

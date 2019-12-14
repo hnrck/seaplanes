@@ -1,10 +1,8 @@
-/**
- * @file    SeaplanesObjectInstance.cc
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date    July, 2016
- * @brief   Rosace Object instance manipulation implementation.
- */
+//! \file    SeaplanesObjectInstance.cc
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date    July, 2016
+//! \brief   Rosace Object instance manipulation implementation.
 
 #include <LogicalProcessorObjectInstance.h>
 

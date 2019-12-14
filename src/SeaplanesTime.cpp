@@ -1,10 +1,8 @@
-/**
- * @file Time.cc
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date September 2016
- * @brief Time manipulation class implementation.
- */
+//! \file Time.cc
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date September 2016
+//! \brief Time manipulation class implementation.
 
 #include <SeaplanesTime.h>
 

@@ -1,10 +1,8 @@
-/**
- * @file    SeaplanesProtoLogicalProcessor.cc
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date    July 2016
- * @brief   Common interface to federates implementation.
- */
+//! \file    SeaplanesProtoLogicalProcessor.cc
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date    July 2016
+//! \brief   Common interface to federates implementation.
 
 #include <cmath>
 #include <cstdlib>
@@ -27,11 +25,8 @@ using std::to_string;
 
 namespace Seaplanes {
 
-// TODO(h.deschamps) clean it. More functions, less methods.
-
 static inline void fileNewLine(ofstream *p_os) { *p_os << std::endl; }
 
-// TODO(h.deschamps) Mechanism for activating/deactivating federate log.
 ProtoLogicalProcessor::ProtoLogicalProcessor(
     Name federation_name, Name federate_name, Name federation_file,
     double time_limit, double timestep, double lookahead, Name log_filename)
@@ -100,13 +95,10 @@ void ProtoLogicalProcessor::addSubscribedObject(
 
 inline void ProtoLogicalProcessor::creationPhase() {
   __logger_.log(Logger::Level::NOTICE, __func__);
-  // TODO(h.deschamps)
   federationCreation();
   federationJoin();
-  // TODO(h.deschamps)
 }
 
-// TODO(h.deschamps) better error handing
 inline void ProtoLogicalProcessor::federationCreation() {
   __logger_ << __func__;
   try {
@@ -119,7 +111,6 @@ inline void ProtoLogicalProcessor::federationCreation() {
   }
 }
 
-// TODO(h.deschamps) better error handing
 inline void ProtoLogicalProcessor::federationJoin() {
   __logger_ << __func__;
   __rti_amb_.joinFederationExecution(__federate_name_.c_str(),
@@ -135,7 +126,6 @@ void ProtoLogicalProcessor::initializationPhase() {
   registeringObjects();
 }
 
-// TODO(h.deschamps) error handling
 inline void ProtoLogicalProcessor::attributesAndObjectsHandlesFetching() {
   __logger_ << __func__;
 
@@ -164,7 +154,6 @@ inline void ProtoLogicalProcessor::attributesAndObjectsHandlesFetching() {
   }
 }
 
-// TODO(h.deschamps) error handling
 inline void ProtoLogicalProcessor::declarationOfPublicationAndSubscription() {
   __logger_ << __func__;
 
@@ -186,7 +175,6 @@ inline void ProtoLogicalProcessor::initializingTimeManagementPolicy() {
   __up_time_management_policy_->initializing();
 }
 
-// TODO(h.deschamps) error handling
 inline void ProtoLogicalProcessor::synchronization() {
   __logger_ << __func__;
   __logger_.log(Logger::Level::NOTICE,
@@ -205,7 +193,6 @@ inline void ProtoLogicalProcessor::synchronization() {
       __rti_amb_.tick2();
     }
 
-    // TODO(h.deschamps) error handling
     if (__sync_reg_failed_) {
       __logger_.log(Logger::Level::ERROR, "Error, synchronization failed.");
     }
@@ -241,7 +228,6 @@ inline void ProtoLogicalProcessor::synchronization() {
   resetSyncRegFailed();
 }
 
-// TODO(h.deschamps) Error handling
 inline void ProtoLogicalProcessor::registeringObjects() {
   __logger_ << __func__;
 
@@ -293,7 +279,6 @@ inline void ProtoLogicalProcessor::simulationLoopPhase() {
     logPreLocalsCalculation();
     localsCalculation(); // Specialized by the federate.
     logPostLocalsCalculation();
-    dumpValuesInFiles(); // TODO(h.deschamps) Specialization in ALL federates,
     // so the method could be pure.
     updatesSending();
     timeAdvance();
@@ -323,7 +308,6 @@ inline void ProtoLogicalProcessor::updatesSending() {
                    to_string(timeStamp.get_s()) + ")";
 
   for (auto &up_published_object : __up_published_objects_) {
-    // TODO(h.deschamps)(henrick) Beware of the type. For now it works, but it
     // might need a small improvement later.
     up_published_object->updateAttributeValues(
         &__rti_amb_, &__certi_message_buffer_, timeStamp.get_us(), tag.str());
@@ -340,10 +324,8 @@ inline void ProtoLogicalProcessor::timeAdvance() {
 inline void ProtoLogicalProcessor::endingPhase() {
   __logger_.log(Logger::Level::NOTICE, __func__);
 
-  // TODO(h.deschamps)
   deletingRegisteredObjects();
   deactivatingTimeManagementPolicy();
-  // TODO(h.deschamps)
 }
 
 inline void ProtoLogicalProcessor::deletingRegisteredObjects() {
@@ -371,14 +353,12 @@ inline void ProtoLogicalProcessor::deletingPhase() {
   closeLogs();
 }
 
-// TODO(h.deschamps) better error handing
 inline void ProtoLogicalProcessor::federationLeaving() {
   __logger_ << __func__;
   __rti_amb_.resignFederationExecution(
       RTI::DELETE_OBJECTS_AND_RELEASE_ATTRIBUTES);
 }
 
-// TODO(h.deschamps) better error handing
 inline void ProtoLogicalProcessor::federationDestruction() {
   __logger_ << __func__;
   if (__is_creator_) {
@@ -415,7 +395,6 @@ inline void ProtoLogicalProcessor::closeLogs() {
 }
 
 inline void ProtoLogicalProcessor::initLogs() {
-  // TODO(h.deschamps) adding further information (date, time, version, misc.)
   __logger_ << "Init log federate " + __federate_name_;
 }
 
@@ -699,12 +678,9 @@ void ProtoLogicalProcessor::discoverObjectInstance(
   for (auto &sp_subscribed_object : __sp_subscribed_objects_) {
     sp_subscribed_object->tryToDiscover(name, object_class_handle,
                                         object_handle);
-    // TODO
     __map_sp_subscribed_objects_[sp_subscribed_object->getHandle()] =
         sp_subscribed_object;
   }
-
-  // TODO(h.deschamps) error could not discover
 }
 
 void ProtoLogicalProcessor::reflectAttributeValues(

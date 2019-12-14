@@ -1,12 +1,10 @@
-/**
- * @file    LogicalProcessorLogger.h
- * @author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
- * @version 1.0.0
- * @date    July, 2016
- * @brief   Logical processor logger
- *
- * This class provides a simple way to log execution
- */
+//! \file    LogicalProcessorLogger.h
+//! \author  Henrick Deschamps (henrick.deschamps [at] isae-supaero [dot] fr)
+//! \version 1.0.0
+//! \date    July, 2016
+//! \brief   Logical processor logger
+//!
+//! This class provides a simple way to log execution
 
 #ifndef LOGICALPROCESSORLOGGER_H
 #define LOGICALPROCESSORLOGGER_H
@@ -18,19 +16,13 @@
 
 namespace Seaplanes {
 
-/**
- * @brief Type for trace file.
- */
+//! \brief Type for trace file.
 using TraceFile = std::ofstream;
 
-/**
- * @brief Type for trace file unique pointer.
- */
+//! \brief Type for trace file unique pointer.
 using UpTraceFile = std::unique_ptr<TraceFile>;
 
-/**
- * @brief Explicit type for message.
- */
+//! \brief Explicit type for message.
 using Message = std::string;
 
 class Logger final {
