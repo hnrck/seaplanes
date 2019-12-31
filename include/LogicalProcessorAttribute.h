@@ -27,7 +27,6 @@ using SpAttribute = std::shared_ptr<class Attribute>;
 class AttributeNoFreshValue final : public std::exception {};
 
 //! \brief Attribute class
-//!
 class Attribute final {
 public:
   //! \brief Attribute factory builder.
@@ -36,7 +35,6 @@ public:
   static SpAttribute create(Name /* name */);
 
   //! \brief Name getter
-  //! Not very useful. For debugging purpose.
   //! \return The name of the attribute.
   Name getName() const;
 
@@ -62,9 +60,7 @@ public:
 
   //! \brief Value getter, checking if the value is fresh or not.
   //! \return The value.
-  template <typename T>
-  // T getFreshValue() const throw(AttributeNoFreshValue);
-  T getFreshValue() const noexcept(false);
+  template <typename T> T getFreshValue() const noexcept(false);
 
   //! \brief Attribute handle setter.
   //! \param  attributeHandle The attribute handle
@@ -82,15 +78,15 @@ public:
   RTI::AttributeHandle getHandle() const;
 
 private:
-  Name __name_;                   //!< Attribute name. */
+  Name __name_;                   //!< Attribute name.
   RTI::AttributeHandle __handle_; //!< Attribute handle, generated during
-  attribute initialization.* /
-      mutable bool __fresh_; //!< True if value asked is fresh, else false. */
+                                  //!< attribute initialization
+  mutable bool __fresh_;          //!< True if value asked is fresh, else false.
   union {
     int i;
     double d;
     bool b;
-  } __value_; //!< Attribute value, which can have different representations. */
+  } __value_; //!< Attribute value, which can have different representations.
 
   //! \brief Attribute constructor.
   //! \param  name The name of the attribute.
