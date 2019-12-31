@@ -99,6 +99,7 @@ set(SEAPLANES_INC
         ${CMAKE_SOURCE_DIR}/include/TimeManagementPolicyFactory.h
         ${CMAKE_SOURCE_DIR}/include/ITimeManagementPolicy.h
         ${CMAKE_SOURCE_DIR}/include/TimeManagementPolicyTimeStep.h
+        ${CMAKE_SOURCE_DIR}/include/seaplanes.h
         ${CMAKE_SOURCE_DIR}/include/SeaplanesTime.h
         ${CMAKE_SOURCE_DIR}/include/LogicalProcessorCommon.h
         ${CMAKE_SOURCE_DIR}/include/LogicalProcessorAttribute.h
@@ -126,8 +127,7 @@ set(SRC_SEAPLANES_LIB
         ${CMAKE_SOURCE_DIR}/src/LogicalProcessorObjectInstance.cpp
         ${CMAKE_SOURCE_DIR}/src/LogicalProcessorObjectInstancePublished.cpp
         ${CMAKE_SOURCE_DIR}/src/LogicalProcessorObjectInstanceSubscribed.cpp
-        ${CMAKE_SOURCE_DIR}/src/LogicalProcessorLogger.cpp
-        )
+        ${CMAKE_SOURCE_DIR}/src/LogicalProcessorLogger.cpp)
 
 add_library(${SEAPLANES_LIB} SHARED ${SRC_SEAPLANES_LIB})
 set_target_properties(${SEAPLANES_LIB} PROPERTIES VERSION ${ABI_VERSION} SOVERSION ${ABI_VERSION_MAJOR})
