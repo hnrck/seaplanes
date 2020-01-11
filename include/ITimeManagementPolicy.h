@@ -31,8 +31,8 @@ public:
   //! \brief ITimeManagementPolicy copy assignement disabled
   void operator=(const ITimeManagementPolicy &) = delete;
 
-  //! \brief ITimeManagementPolicy move constructor disabled
-  ITimeManagementPolicy(ITimeManagementPolicy &&) = delete;
+  //! \brief ITimeManagementPolicy move constructor, default
+  ITimeManagementPolicy(ITimeManagementPolicy &&) = default;
 
   //! \brief ITimeManagementPolicy move assignement disabled
   void operator=(ITimeManagementPolicy &&) = delete;

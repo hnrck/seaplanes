@@ -6,8 +6,6 @@
 
 #include <LogicalProcessorObjectInstance.h>
 
-using std::move;
-
 namespace Seaplanes {
 
 ObjectInstance::ObjectInstance(Name name, SpObject sp_object)

@@ -23,8 +23,9 @@ public:
   ~TimeManagementPolicyFactory() = delete;
   TimeManagementPolicyFactory(const TimeManagementPolicyFactory &) = delete;
   void operator=(const TimeManagementPolicyFactory &) = delete;
-  TimeManagementPolicyFactory(TimeManagementPolicyFactory &&) = delete;
-  void operator=(TimeManagementPolicyFactory &&) = delete;
+  TimeManagementPolicyFactory(TimeManagementPolicyFactory &&) = default;
+  TimeManagementPolicyFactory &
+  operator=(TimeManagementPolicyFactory &&) = default;
 
   //! \brief TimeManagementPolicy generator.
   //! \template class T The type of time management policy. \see Time management

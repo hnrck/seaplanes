@@ -6,6 +6,7 @@
 
 #include <cmath>
 #include <cstdlib>
+#include <ostream>
 #include <iostream>
 #include <string>
 #include <unistd.h>
@@ -17,7 +18,9 @@
 #define "syncPoint"
 #endif // FEDERATION_SYNC_POINT_NAME
 
+using std::clog;
 using std::move;
+using std::ostream;
 using std::ofstream;
 using std::string;
 using std::stringstream;
@@ -29,7 +32,7 @@ static inline void fileNewLine(ofstream *p_os) { *p_os << std::endl; }
 
 ProtoLogicalProcessor::ProtoLogicalProcessor(
     Name federation_name, Name federate_name, Name federation_file,
-    double time_limit, double timestep, double lookahead, Name log_filename)
+    double time_limit, double timestep, double lookahead, ostream *p_log_stream)
     : __synchro_point_name_(FEDERATION_SYNC_POINT_NAME),
       __federation_name_(move(federation_name)),
       __federate_name_(move(federate_name)),
@@ -44,7 +47,7 @@ ProtoLogicalProcessor::ProtoLogicalProcessor(
       __up_time_management_policy_(
           TimeManagementPolicyFactory::create<TimeManagementPolicyTimeStep>(
               *this)),
-      __logger_(Logger::get_instance(move(log_filename))),
+      __logger_(Logger::get_instance(p_log_stream)),
       __federate_conso_filename_(Name()), __federate_conso_(nullptr),
       __federate_prod_filename_(Name()), __federate_prod_(nullptr),
       __uav_index_(0), __up_rav_tags_(VecUpTag()),
@@ -252,8 +255,6 @@ inline void ProtoLogicalProcessor::initFiles() {
   static auto precision = 17;
   std::cout.precision(precision);
 
-  __logger_.open_trace_file();
-
   if (!__federate_conso_filename_.empty()) {
     __federate_conso_.open(__federate_conso_filename_);
     __federate_conso_.precision(precision);
@@ -381,8 +382,6 @@ inline void ProtoLogicalProcessor::federationDestruction() {
 inline void ProtoLogicalProcessor::closeLogs() {
   __logger_.log(Logger::Level::NOTICE, __func__);
 
-  __logger_.close_trace_file();
-
   if (!__federate_conso_filename_.empty()) {
     __federate_conso_.flush();
     __federate_conso_.close();
@@ -504,10 +503,6 @@ void ProtoLogicalProcessor::setAskTimeRegulator() {
 
 void ProtoLogicalProcessor::setDoesNotAskTimeRegulator() {
   __ask_time_regulator_ = false;
-}
-
-void ProtoLogicalProcessor::setLogFilename(Name name) {
-  __logger_.set_trace_filename(move(name));
 }
 
 void ProtoLogicalProcessor::setProdFilename(Name name) {

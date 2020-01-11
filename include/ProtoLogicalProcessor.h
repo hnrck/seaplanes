@@ -60,7 +60,7 @@ public:
   ProtoLogicalProcessor(Name /* federation_name */, Name /* federate_name */,
                         Name /* federation_file */, double /* time_limit */,
                         double /* timestep */, double /* lookahead */,
-                        Name /* log_filename */ = std::string());
+                        std::ostream * /* p_log_stream */ = &std::clog);
 
   //! \brief Create a new federate.
   //! \param  federate_name The name of the federate.
@@ -78,18 +78,14 @@ public:
   //! \brief Federate copy constructor (disabled).
   ProtoLogicalProcessor(const ProtoLogicalProcessor &) = delete;
 
-  //! \brief Federate move constructor (disabled).
-  ProtoLogicalProcessor(const ProtoLogicalProcessor &&) = delete;
-
   //! \brief Federate copy assignement (disabled).
   void operator=(const ProtoLogicalProcessor &) = delete;
 
+  //! \brief Federate move constructor (default).
+  ProtoLogicalProcessor(ProtoLogicalProcessor &&) = default;
+
   //! \brief Federate move assignement (disabled).
   void operator=(ProtoLogicalProcessor &&) = delete;
-
-  //! \brief Set a name for the log file.
-  //! \param name  The log file name.
-  void setLogFilename(Name /* name */);
 
   //! \brief Set a name for the prod file.
   //! \param name  The prod file name.
@@ -479,7 +475,7 @@ private:
   //! The strategy for time managemeent policy.
   UpITimeManagementPolicy __up_time_management_policy_;
 
-  //! Federate LOG, consomate and product values dump. If NULL (default value),
+  //! Federate LOG, consume and product values dump. If NULL (default value),
   //! does not do * anything. Set to NULL during federate initialization if
   //! filename are empty.
   Logger &__logger_;

@@ -7,7 +7,6 @@
 #include <LogicalProcessorObjectInstancePublished.h>
 
 using std::make_unique;
-using std::move;
 using std::string;
 
 namespace Seaplanes {

@@ -7,10 +7,17 @@
 #include <SeaplanesTime.h>
 
 using std::ostream;
-using std::stod;
 using std::string;
 
 namespace Seaplanes {
+
+const char *ErrorTimeOverflow::what() const noexcept {
+  return "seaplanes time overflow";
+}
+
+const char *ErrorTimePrecisionLoss::what() const noexcept {
+  return "time precision loss";
+}
 
 SeaplanesTime::SeaplanesTime(char *t_cstr) : SeaplanesTime() {
   auto t_str = string(t_cstr);
@@ -81,11 +88,11 @@ void SeaplanesTime::add(const SeaplanesTime &t) {
   const auto tmp_us = us_ + t.us_;
 
   if (tmp_us < us_) {
-    throw(ErrorTimeOverflow());
+    throw ErrorTimeOverflow();
   }
 
   if (tmp_us > (1UL << 53U)) {
-    throw(ErrorTimePrecisionLoss());
+    throw ErrorTimePrecisionLoss();
   }
 
   us_ = tmp_us;

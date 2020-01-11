@@ -9,6 +9,9 @@
 #ifndef LOGICALPROCESSORLOGGER_H
 #define LOGICALPROCESSORLOGGER_H
 
+#include <iostream>
+
+#include <map>
 #include <memory>
 #include <string>
 
@@ -16,18 +19,12 @@
 
 namespace Seaplanes {
 
-//! \brief Type for trace file.
-using TraceFile = std::ofstream;
-
-//! \brief Type for trace file unique pointer.
-using UpTraceFile = std::unique_ptr<TraceFile>;
-
 //! \brief Explicit type for message.
 using Message = std::string;
 
 class Logger final {
 public:
-  enum class Level {
+  enum class Level : unsigned int {
     INFO,
     NOTICE,
     WARN,
@@ -38,23 +35,24 @@ public:
   Logger(const Logger &) = delete;
   void operator=(const Logger &) = delete;
   Logger(Logger &&) = default;
-  Logger &operator=(Logger &&) = default;
+  void operator=(Logger &&) = delete;
 
-  static Logger &get_instance(Name /* filename */ = Name());
+  static Logger &get_instance(std::ostream * /* p_log_stream */ = &std::clog);
   static void set_default_level(Level /* level */);
-  void log(Level /* level */, Message /* message */);
-  void operator<<(Message /* message */);
-
-  void set_trace_filename(Name /* filename */);
-  void open_trace_file();
-  void close_trace_file();
+  void log(Level /* level */, const Message & /* message */);
+  void operator<<(const Message & /* message */);
 
 private:
-  Name __trace_filename_;
-  UpTraceFile __up_trace_file_;
+  std::ostream *__p_log_stream_;
   static Level __default_level_;
+  const std::map<Level, Message> __HEADERS_{
+      {Level::INFO, "INFO"},
+      {Level::NOTICE, "NOTICE"},
+      {Level::WARN, "WARN"},
+      {Level::ERROR, "ERROR"},
+  };
 
-  explicit Logger(Name /* filename */ = Name());
+  explicit Logger(std::ostream * /* p_log_stream */);
 };
 
 } // namespace Seaplanes

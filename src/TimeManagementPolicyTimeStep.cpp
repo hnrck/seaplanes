@@ -4,8 +4,6 @@
 //! \date    July, 2016
 //! \brief   Timestep time management specialization implementation.
 
-#include <iostream>
-
 #include <ProtoLogicalProcessor.h>
 #include <TimeManagementPolicyTimeStep.h>
 

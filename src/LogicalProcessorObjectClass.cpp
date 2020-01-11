@@ -6,8 +6,6 @@
 
 #include <LogicalProcessorObjectClass.h>
 
-using std::move;
-
 namespace Seaplanes {
 
 Object::Object(Name name) : __handle_(0), __name_(move(name)) {}

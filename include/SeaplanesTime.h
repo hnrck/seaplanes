@@ -14,10 +14,14 @@
 namespace Seaplanes {
 
 //! \brief Time overflow error.
-class ErrorTimeOverflow final : public std::exception {};
+class ErrorTimeOverflow final : public std::exception {
+  const char *what() const noexcept final;
+};
 
 //! \brief Time precision loss. If casted in double, time will be false.
-class ErrorTimePrecisionLoss final : public std::exception {};
+class ErrorTimePrecisionLoss final : public std::exception {
+  const char *what() const noexcept final;
+};
 
 //! \brief Time class, allowing manipulating time without explicit
 //! multiplications and casts when changing units.
