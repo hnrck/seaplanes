@@ -45,9 +45,8 @@ ProtoLogicalProcessor::ProtoLogicalProcessor(
       __up_time_management_policy_(
           TimeManagementPolicyFactory::create<TimeManagementPolicyTimeStep>(
               *this)),
-      __logger_(Logger::get_instance(p_log_stream)),
-      __uav_index_(0), __up_rav_tags_(VecUpTag()),
-      __sp_object_classes_(VecSpObject()),
+      __logger_(Logger::get_instance(p_log_stream)), __uav_index_(0),
+      __up_rav_tags_(VecUpTag()), __sp_object_classes_(VecSpObject()),
       __sp_subscribed_objects_(VecSpObjectInstanceSubscribed()),
       __up_published_objects_(VecUpObjectInstancePublished()),
       __map_sp_subscribed_objects_(MapHandleSpObjectInstanceSubscribed()),
@@ -382,7 +381,10 @@ void ProtoLogicalProcessor::printProgression() const {
       std::cout << " ";
     }
   }
-  std::cout << "] " << (currProgression / width) * 100 << " %\r";
+  std::cout << "] "
+            << static_cast<unsigned int>(
+                   (static_cast<double>(currProgression) / width) * 100)
+            << " %\r";
   std::cout.flush();
 }
 
