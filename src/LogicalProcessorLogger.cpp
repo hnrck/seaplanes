@@ -30,7 +30,7 @@ void Logger::set_default_level(Level level) { __default_level_ = level; }
 void Logger::log(Level level, const Message &message) {
   if (__p_log_stream_ != nullptr) {
     if (level >= __default_level_) {
-      *__p_log_stream_ << __HEADERS_.at(level) << ": " << message;
+      *__p_log_stream_ << __HEADERS_.at(level) << ": " << message << endl;
     }
   }
 }

@@ -11,31 +11,28 @@ namespace Seaplanes {
 
 TimeManagementPolicyTimeStep::TimeManagementPolicyTimeStep(
     ProtoLogicalProcessor &lp)
-    : ITimeManagementPolicy(lp) {}
+    : __up_time_management_policy_(std::make_unique<TimeManagementPolicy>(lp)) {
+}
 
 void TimeManagementPolicyTimeStep::initializing() {
-  if (__lp_.getAskTimeRegulator()) {
-    __lp_.enableTimeRegulation();
-  }
-  if (__lp_.getAskTimeConstrained()) {
-    __lp_.enableTimeConstrained();
-  }
-  __lp_.enableAsynchronousDelivery();
+  __up_time_management_policy_->initializing();
 }
 
 void TimeManagementPolicyTimeStep::timeAdvance() {
-  const auto dt = __lp_.getTimeStep();
-  __lp_.timeAdvanceRequest(dt);
+  setDt(getLP().getTimeStep());
+  __up_time_management_policy_->timeAdvance();
 }
 
 void TimeManagementPolicyTimeStep::deactivating() {
-  if (__lp_.getAskTimeRegulator()) {
-    __lp_.disableTimeRegulation();
-  }
-  if (__lp_.getAskTimeConstrained()) {
-    __lp_.disableTimeConstrained();
-  }
-  __lp_.disableAsynchronousDelivery();
+  __up_time_management_policy_->deactivating();
+}
+
+auto TimeManagementPolicyTimeStep::setDt(SeaplanesTime dt) -> void {
+  __up_time_management_policy_->setDt(dt);
+}
+
+auto TimeManagementPolicyTimeStep::getLP() -> ProtoLogicalProcessor & {
+  return __up_time_management_policy_->getLP();
 }
 
 } // namespace Seaplanes

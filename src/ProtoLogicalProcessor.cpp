@@ -6,8 +6,8 @@
 
 #include <cmath>
 #include <cstdlib>
-#include <ostream>
 #include <iostream>
+#include <ostream>
 #include <string>
 #include <unistd.h>
 
@@ -20,8 +20,8 @@
 
 using std::clog;
 using std::move;
-using std::ostream;
 using std::ofstream;
+using std::ostream;
 using std::string;
 using std::stringstream;
 using std::to_string;

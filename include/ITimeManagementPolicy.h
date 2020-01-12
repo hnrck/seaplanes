@@ -14,6 +14,8 @@
 
 #include <memory>
 
+#include <SeaplanesTime.h>
+
 namespace Seaplanes {
 
 //! \brief Type for ITimeManagementPolicy unique pointer.
@@ -29,32 +31,35 @@ public:
   ITimeManagementPolicy(const ITimeManagementPolicy &) = delete;
 
   //! \brief ITimeManagementPolicy copy assignement disabled
-  void operator=(const ITimeManagementPolicy &) = delete;
+  auto operator=(const ITimeManagementPolicy &) = delete;
 
   //! \brief ITimeManagementPolicy move constructor, default
   ITimeManagementPolicy(ITimeManagementPolicy &&) = default;
 
   //! \brief ITimeManagementPolicy move assignement disabled
-  void operator=(ITimeManagementPolicy &&) = delete;
+  auto operator=(ITimeManagementPolicy &&) = delete;
 
   //! \brief Initializing of time management policy.
-  virtual void initializing() = 0;
+  virtual auto initializing() -> void = 0;
 
   //! \brief time advance of time management policy.
-  virtual void timeAdvance() = 0;
+  virtual auto timeAdvance() -> void = 0;
 
   //! \brief Deactivating of time management policy.
-  virtual void deactivating() = 0;
+  virtual auto deactivating() -> void = 0;
+
+  //! \brief Set next time for time advancement.
+  virtual auto setDt(SeaplanesTime /* dt */) -> void = 0;
+
+  //! \brief Access logical processor.
+  virtual auto getLP() -> class ProtoLogicalProcessor & = 0;
 
 protected:
-  class ProtoLogicalProcessor &__lp_; //!< Reference to the concerned LP. */
-
   //! \brief ITimeManagementPolicy constructor, protected so the
-  //! timeManagementPolicies can use it while federates use the AbstractFactory
-  //! builder.
+  //! timeManagementPolicies can use it while federates use the factory builder.
   //! \param lp Reference to the LP concerned by the time management
   //! policy.
-  explicit ITimeManagementPolicy(class ProtoLogicalProcessor & /* lp */);
+  ITimeManagementPolicy() = default;
 };
 
 } // namespace Seaplanes

@@ -8,6 +8,7 @@
 #define TIMEMANAGEMENTPOLICYTIMESTEP_H
 
 #include <ITimeManagementPolicy.h>
+#include <TimeManagementPolicy.h>
 
 namespace Seaplanes {
 
@@ -21,19 +22,28 @@ public:
   ~TimeManagementPolicyTimeStep() override = default;
 
   //! \brief Initializing of time management policy.
-  void initializing() final;
+  auto initializing() -> void final;
 
   //! \brief time advance of time management policy.
-  void timeAdvance() final;
+  auto timeAdvance() -> void final;
 
   //! \brief Deactivating of time management policy.
-  void deactivating() final;
+  auto deactivating() -> void final;
+
+  //! \brief Set next time for time advancement.
+  auto setDt(SeaplanesTime /* dt */) -> void final;
+
+  //! \brief Access logical processor.
+  auto getLP() -> ProtoLogicalProcessor & final;
 
 private:
   friend ITimeManagementPolicy;
   friend UpTimeManagementPolicyTimeStep
   std::make_unique<TimeManagementPolicyTimeStep>(
       Seaplanes::ProtoLogicalProcessor &);
+
+  UpTimeManagementPolicy
+      __up_time_management_policy_; //!< base time management policy.
 
   //! \brief TimeManagementPolicyTimeStep constructor, protected so the
   //! timeManagementPolicies can use it while federates use the factory builder.

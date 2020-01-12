@@ -34,8 +34,8 @@ public:
   //! management policy.
   //! \return unique pointer to the constructed time management policy.
   template <class T>
-  static UpITimeManagementPolicy
-  create(class ProtoLogicalProcessor & /*federate*/);
+  static auto create(class ProtoLogicalProcessor & /*federate*/)
+      -> UpITimeManagementPolicy;
 };
 
 } // namespace Seaplanes

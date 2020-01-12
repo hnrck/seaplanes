@@ -98,6 +98,7 @@ set(SEAPLANES_INC
         ${CMAKE_SOURCE_DIR}/include/ProtoLogicalProcessor.h
         ${CMAKE_SOURCE_DIR}/include/TimeManagementPolicyFactory.h
         ${CMAKE_SOURCE_DIR}/include/ITimeManagementPolicy.h
+        ${CMAKE_SOURCE_DIR}/include/TimeManagementPolicy.h
         ${CMAKE_SOURCE_DIR}/include/TimeManagementPolicyTimeStep.h
         ${CMAKE_SOURCE_DIR}/include/seaplanes.h
         ${CMAKE_SOURCE_DIR}/include/SeaplanesTime.h
@@ -119,7 +120,7 @@ set(SRC_SEAPLANES_LIB
         ${SEAPLANES_INC}
         ${CMAKE_SOURCE_DIR}/src/ProtoLogicalProcessor.cpp
         ${CMAKE_SOURCE_DIR}/src/TimeManagementPolicyFactory.cpp
-        ${CMAKE_SOURCE_DIR}/src/ITimeManagementPolicy.cpp
+        ${CMAKE_SOURCE_DIR}/src/TimeManagementPolicy.cpp
         ${CMAKE_SOURCE_DIR}/src/TimeManagementPolicyTimeStep.cpp
         ${CMAKE_SOURCE_DIR}/src/SeaplanesTime.cpp
         ${CMAKE_SOURCE_DIR}/src/LogicalProcessorAttribute.cpp
