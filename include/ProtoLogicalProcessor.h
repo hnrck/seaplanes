@@ -87,14 +87,6 @@ public:
   //! \brief Federate move assignement (disabled).
   void operator=(ProtoLogicalProcessor &&) = delete;
 
-  //! \brief Set a name for the prod file.
-  //! \param name  The prod file name.
-  void setProdFilename(Name /* name */);
-
-  //! \brief Set a name for the conso file.
-  //! \param name  The conso file name.
-  void setConsoFilename(Name /* name */);
-
   //! \brief Get local time.
   //! \return
   SeaplanesTime getLocalTime() const;
@@ -240,9 +232,6 @@ protected:
   //! \brief Initialize the federation.
   virtual void initializationPhase();
 
-  //! \brief Initialize the log and dump values files
-  void initFiles();
-
   //! \brief  Fetch attributes and object handles. \see
   //! Seaplanes::ProtoLogicalProcessor::initializationPhase
   void attributesAndObjectsHandlesFetching();
@@ -304,24 +293,11 @@ protected:
   //! Seaplanes::ProtoLogicalProcessor::deletingPhase
   void federationDestruction();
 
-  //! \brief Close the log files. \see
-  //! Seaplanes::ProtoLogicalProcessor::deletingPhase
-  void closeLogs();
-
-  //! \brief Initialize the log files.
-  void initLogs();
-
-  //! \brief Initialize the dump files.
-  virtual void initDumpFiles();
-
   //! \brief Log activity before local calculation.
   void logPreLocalsCalculation();
 
   //! \brief Log activity after local calculation.
   void logPostLocalsCalculation();
-
-  //! \brief Dump values in files.
-  virtual void dumpValuesInFiles();
 
   //! \brief Print a progression bar.
   void printProgression() const;
@@ -405,32 +381,6 @@ protected:
   //! \return True if creator, else false.
   bool getIsCreator() const;
 
-  //! \brief Write in conso file.
-  //! \param  t something to write.
-  template <typename T> void consoFileWrite(T /* t */);
-
-  //! \brief Write in conso file.
-  //! \param  t Something to write.
-  //! \param  args Other things to write.
-  template <typename T, typename... Args>
-  void consoFileWrite(T /* t */, Args &&... /* args */);
-
-  //! \brief Write a new line in conso file.
-  void consoFileNewLine();
-
-  //! \brief Write in prod file.
-  //! \param  t Something to write.
-  template <typename T> void prodFileWrite(T /* t */);
-
-  //! \brief Write in prod file.
-  //! \param  t Something to write.
-  //! \param  args Other things to write.
-  template <typename T, typename... Args>
-  void prodFileWrite(T /* t */, Args &&... /* args */);
-
-  //! \brief Write a new line in prod file.
-  void prodFileNewLine();
-
   //! \brief get current step index.
   //! \return The step index
   unsigned long long getStepNumber() const;
@@ -480,12 +430,6 @@ private:
   //! filename are empty.
   Logger &__logger_;
 
-  Name __federate_conso_filename_; //!< The name of the consumed values file.
-  std::ofstream __federate_conso_; //!< The consumed values file.
-
-  Name __federate_prod_filename_; //!< The name of the product values file.
-  std::ofstream __federate_prod_; //!< The product values file.
-
   unsigned int __uav_index_; //!< Index of UAV for context.
   VecUpTag __up_rav_tags_;   //!< Index of RAVs for context.
 
@@ -504,10 +448,6 @@ private:
   std::time_t __timer_simu_start_; //!< Timer set when simulation start.
   std::time_t __timer_simu_end_;   //!< Time set when simulation end.
 };
-
-// Templates implementation
-#include <ProtoLogicalProcessor.tcc>
-
 } // namespace Seaplanes
 
 #endif // PROTOLOGICALPROCESSOR_H

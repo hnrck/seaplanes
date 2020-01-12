@@ -28,8 +28,6 @@ using std::to_string;
 
 namespace Seaplanes {
 
-static inline void fileNewLine(ofstream *p_os) { *p_os << std::endl; }
-
 ProtoLogicalProcessor::ProtoLogicalProcessor(
     Name federation_name, Name federate_name, Name federation_file,
     double time_limit, double timestep, double lookahead, ostream *p_log_stream)
@@ -48,8 +46,6 @@ ProtoLogicalProcessor::ProtoLogicalProcessor(
           TimeManagementPolicyFactory::create<TimeManagementPolicyTimeStep>(
               *this)),
       __logger_(Logger::get_instance(p_log_stream)),
-      __federate_conso_filename_(Name()), __federate_conso_(nullptr),
-      __federate_prod_filename_(Name()), __federate_prod_(nullptr),
       __uav_index_(0), __up_rav_tags_(VecUpTag()),
       __sp_object_classes_(VecSpObject()),
       __sp_subscribed_objects_(VecSpObjectInstanceSubscribed()),
@@ -184,8 +180,7 @@ inline void ProtoLogicalProcessor::synchronization() {
                 "Synchro point name: " + __synchro_point_name_);
 
   if (__is_creator_) {
-    __logger_.log(Logger::Level::WARN,
-                  "Press enter to register synchro point.");
+    std::cout << "Press enter to register synchro point." << std::endl;
     std::cin.get();
 
     __logger_ << "Registering synchro point " + __synchro_point_name_;
@@ -199,8 +194,7 @@ inline void ProtoLogicalProcessor::synchronization() {
     if (__sync_reg_failed_) {
       __logger_.log(Logger::Level::ERROR, "Error, synchronization failed.");
     }
-
-    __logger_.log(Logger::Level::WARN, "Press enter to start the simulation.");
+    std::cout << "Press enter to start the simulation." << std::endl;
     std::cin.get();
 
     setInPause();
@@ -249,24 +243,6 @@ inline void ProtoLogicalProcessor::registeringObjects() {
     __logger_ << sp_subscribed_object->getName() + " discovered ? " +
                      to_string(sp_subscribed_object->getDiscovered());
   }
-}
-
-inline void ProtoLogicalProcessor::initFiles() {
-  static auto precision = 17;
-  std::cout.precision(precision);
-
-  if (!__federate_conso_filename_.empty()) {
-    __federate_conso_.open(__federate_conso_filename_);
-    __federate_conso_.precision(precision);
-  }
-
-  if (!__federate_prod_filename_.empty()) {
-    __federate_prod_.open(__federate_prod_filename_);
-    __federate_prod_.precision(precision);
-  }
-
-  initLogs();
-  initDumpFiles();
 }
 
 inline void ProtoLogicalProcessor::simulationLoopPhase() {
@@ -351,7 +327,6 @@ inline void ProtoLogicalProcessor::deletingPhase() {
   __logger_.log(Logger::Level::NOTICE, __func__);
   federationLeaving();
   federationDestruction();
-  closeLogs();
 }
 
 inline void ProtoLogicalProcessor::federationLeaving() {
@@ -379,26 +354,6 @@ inline void ProtoLogicalProcessor::federationDestruction() {
   }
 }
 
-inline void ProtoLogicalProcessor::closeLogs() {
-  __logger_.log(Logger::Level::NOTICE, __func__);
-
-  if (!__federate_conso_filename_.empty()) {
-    __federate_conso_.flush();
-    __federate_conso_.close();
-  }
-
-  if (!__federate_prod_filename_.empty()) {
-    __federate_prod_.flush();
-    __federate_prod_.close();
-  }
-}
-
-inline void ProtoLogicalProcessor::initLogs() {
-  __logger_ << "Init log federate " + __federate_name_;
-}
-
-void ProtoLogicalProcessor::initDumpFiles() {}
-
 inline void ProtoLogicalProcessor::logPreLocalsCalculation() {
   for (const auto &up_rav_tag : __up_rav_tags_) {
     __logger_ << "sRAV\t" + (*up_rav_tag) + "\t(" +
@@ -411,8 +366,6 @@ inline void ProtoLogicalProcessor::logPostLocalsCalculation() {
   __logger_ << "sUAV\t" + __federate_name_ + "." + to_string(__uav_index_) +
                    "\t(" + to_string(__local_time_.get_s()) + ")";
 }
-
-void ProtoLogicalProcessor::dumpValuesInFiles() {}
 
 void ProtoLogicalProcessor::printProgression() const {
   static const auto width = 70U;
@@ -482,8 +435,6 @@ void ProtoLogicalProcessor::run() {
   __logger_.log(Logger::Level::NOTICE, __func__);
 
   try {
-    initFiles();
-
     creationPhase();
     initializationPhase();
     simulationLoopPhase();
@@ -503,14 +454,6 @@ void ProtoLogicalProcessor::setAskTimeRegulator() {
 
 void ProtoLogicalProcessor::setDoesNotAskTimeRegulator() {
   __ask_time_regulator_ = false;
-}
-
-void ProtoLogicalProcessor::setProdFilename(Name name) {
-  __federate_prod_filename_.assign(move(name));
-}
-
-void ProtoLogicalProcessor::setConsoFilename(Name name) {
-  __federate_conso_filename_.assign(move(name));
 }
 
 SeaplanesTime ProtoLogicalProcessor::getLocalTime() const {
@@ -600,14 +543,6 @@ bool ProtoLogicalProcessor::getInPause() const { return (__in_pause_); }
 void ProtoLogicalProcessor::setIsCreator() { __is_creator_ = true; }
 
 bool ProtoLogicalProcessor::getIsCreator() const { return (__is_creator_); }
-
-void ProtoLogicalProcessor::consoFileNewLine() {
-  fileNewLine(&__federate_conso_);
-}
-
-void ProtoLogicalProcessor::prodFileNewLine() {
-  fileNewLine(&__federate_prod_);
-}
 
 unsigned long long ProtoLogicalProcessor::getStepNumber() const {
   return __step_number_;

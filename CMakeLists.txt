@@ -110,7 +110,6 @@ set(SEAPLANES_INC
         ${CMAKE_SOURCE_DIR}/include/LogicalProcessorObjectInstanceSubscribed.h
         ${CMAKE_SOURCE_DIR}/include/LogicalProcessorLogger.h
         ${CMAKE_SOURCE_DIR}/templates/TimeLiterals.tcc
-        ${CMAKE_SOURCE_DIR}/templates/ProtoLogicalProcessor.tcc
         )
 
 
