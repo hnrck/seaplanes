@@ -1,4 +1,4 @@
-[![GitHub version](https://img.shields.io/badge/version-1.2.0-green.svg)](https://github.com/hnrck/seaplanes/releases/tag/1.2.0)
+[![GitHub version](https://img.shields.io/badge/version-1.1.0-green.svg)](https://github.com/hnrck/seaplanes/releases/tag/1.1.0)
 [![GitHub issues](https://img.shields.io/github/issues/hnrck/seaplanes.svg)](https://github.com/hnrck/seaplanes/issues)
 [![GitHub forks](https://img.shields.io/github/forks/hnrck/seaplanes.svg)](https://github.com/hnrck/seaplanes/network)
 [![GitHub stars](https://img.shields.io/github/stars/hnrck/seaplanes.svg)](https://github.com/hnrck/seaplanes/stargazers)
@@ -40,13 +40,13 @@ This repo is available at :link: [hnrck/seaplanes](https://github.com/hnrck/seap
 Cloning can be done in HTTPS mode:
 ```bash
 $ git clone https://github.com/hnrck/seaplanes
-$ git checkout tags/1.0.0
+$ git checkout tags/1.1.0
 ```
 
 or with ssh mode:
 ```bash
 $ git clone git@github.com:hnrck/seaplanes.git
-$ git checkout tags/1.0.0
+$ git checkout tags/1.1.0
 ```
 
 ### 1.2. Generating the documentation
