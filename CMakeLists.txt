@@ -45,20 +45,24 @@ set(CMAKE_INCLUDE_OUTPUT_DIRECTORY usr/include)
 
 if (APPLE)
     set(CMAKE_MACOSX_RPATH ON)
-    find_library(RTI_LIB RTI-NG ENV DYLD_LIBRARY_PATH)
-    find_library(FEDTIME_LIB FedTimed ENV DYLD_LIBRARY_PATH)
-    find_library(HLA_LIB HLAd ENV DYLD_LIBRARY_PATH)
-    if (NOT RTI_LIB)
-        find_library(RTI_LIB RTI-NGd ENV DYLD_LIBRARY_PATH)
-    endif ()
+    find_library(RTI_LIB NAMES RTI-NG RTI-NGd ENV DYLD_LIBRARY_PATH)
+    find_library(FEDTIME_LIB NAMES FedTime FedTimed ENV DYLD_LIBRARY_PATH)
+    find_library(HLA_LIB NAMES HLA HLAd ENV DYLD_LIBRARY_PATH)
     get_filename_component(RTI_LIB_PATH ${RTI_LIB} DIRECTORY)
     set(CMAKE_INSTALL_RPATH "")
 else ()
     find_library(RTI_LIB RTI-NG ENV LIBRARY_PATH)
-    find_library(FEDTIME_LIB FedTimed ENV LIBRARY_PATH)
-    find_library(HLA_LIB HLAd ENV LIBRARY_PATH)
+    find_library(FEDTIME_LIB FedTime ENV LIBRARY_PATH)
+    find_library(HLA_LIB HLA ENV LIBRARY_PATH)
+    # NAMES has error with Linux.
     if (NOT RTI_LIB)
         find_library(RTI_LIB RTI-NGd ENV LIBRARY_PATH)
+    endif ()
+    if (NOT FEDTIME_LIB)
+        find_library(FEDTIME_LIB FedTimed ENV LIBRARY_PATH)
+    endif ()
+    if (NOT HLA_LIB)
+        find_library(HLA_LIB HLAd ENV LIBRARY_PATH)
     endif ()
 endif ()
 #-----------------------------------------------------------------------------------------------------------------------
@@ -131,12 +135,13 @@ set(SRC_SEAPLANES_LIB
 
 add_library(${SEAPLANES_LIB} SHARED ${SRC_SEAPLANES_LIB})
 set_target_properties(${SEAPLANES_LIB} PROPERTIES VERSION ${ABI_VERSION} SOVERSION ${ABI_VERSION_MAJOR})
-target_link_libraries(${SEAPLANES_LIB})
 
 if (APPLE)
     set(CMAKE_MACOSX_RPATH ON)
-    target_link_libraries(${SEAPLANES_LIB} ${RTI_LIB} ${FEDTIME_LIB} ${HLA_LIB})
 endif ()
+
+target_link_libraries(${SEAPLANES_LIB} PUBLIC ${RTI_LIB} ${FEDTIME_LIB} ${HLA_LIB})
+
 #-----------------------------------------------------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------------------------------------------------
